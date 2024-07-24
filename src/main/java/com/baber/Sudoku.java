@@ -19,7 +19,7 @@ public class Sudoku {
         while (!puzzleSteps.isEmpty()) {
             for (int i = 0; i< puzzleSteps.size(); i++) {
                 Puzzle puzzle = puzzleSteps.get(i);
-                log.info("Evalulate {} of {}\n{}", i+1, puzzleSteps.size(), puzzle);
+                log.info("Evaluate {} of {}\n{}", i+1, puzzleSteps.size(), puzzle);
                 puzzle.solveSingleCandidates();
             }
 

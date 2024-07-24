@@ -4,11 +4,33 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5e1756cf-d2cf-4f0a-8f37-74c2b2ff284b" name="Changes" comment="initial commit" />
+    <list default="true" id="5e1756cf-d2cf-4f0a-8f37-74c2b2ff284b" name="Changes" comment="initial commit">
+      <change afterPath="$PROJECT_DIR$/.run/Sudoku.run.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.run/SudokuUI.run.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/baber/Controller.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/baber/ResourceUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/baber/SudokuUI.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/baber/fx/BackgroundAgent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/baber/fx/Dialogs.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/baber/fx/HandlesEvent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/SudokuFX.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/app.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/application.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/fontawesome-webfont.ttf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -30,13 +52,13 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "/Users/stevebaber/git/sudoko/src/main/java/com/baber",
+    "last_opened_file_path": "/Users/stevebaber/git/sudoko/src/main/resources",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
+    "project.structure.last.edited": "Artifacts",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
     "settings.editor.selected.configurable": "reference.settings.project.maven.importing",
@@ -45,29 +67,25 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources" />
       <recent name="$PROJECT_DIR$/src/main/java/com/baber" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/resources/META-INF" />
       <recent name="$PROJECT_DIR$/src/main/resources" />
     </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.baber" />
+    </key>
   </component>
-  <component name="RunManager">
-    <configuration name="Sudoku" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.baber.Sudoku" />
-      <module name="sudoko" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.baber.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="Application.SudokuUI">
+    <list>
+      <item itemvalue="Application.SudokuUI" />
+      <item itemvalue="Application.Sudoku" />
+    </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.SudokuUI" />
         <item itemvalue="Application.Sudoku" />
       </list>
     </recent_temporary>
@@ -81,7 +99,8 @@
       <option name="presentableId" value="Default" />
       <updated>1721843674836</updated>
       <workItem from="1721843675905" duration="1311000" />
-      <workItem from="1721844995696" duration="1160000" />
+      <workItem from="1721844995696" duration="1347000" />
+      <workItem from="1721849009349" duration="4332000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <option name="closed" value="true" />
@@ -99,7 +118,23 @@
       <option name="project" value="LOCAL" />
       <updated>1721846161584</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="initial commit">
+      <option name="closed" value="true" />
+      <created>1721846231017</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1721846231017</updated>
+    </task>
+    <task id="LOCAL-00004" summary="initial commit">
+      <option name="closed" value="true" />
+      <created>1721846258919</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1721846258919</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
