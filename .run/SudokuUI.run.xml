@@ -1,10 +1,13 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="SudokuUI" type="Application" factoryName="Application" nameIsGenerated="true">
-    <option name="ALTERNATIVE_JRE_PATH" value="azul-11" />
+    <option name="ALTERNATIVE_JRE_PATH" value="11" />
     <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
     <option name="MAIN_CLASS_NAME" value="com.baber.SudokuUI" />
     <module name="sudoku" />
-    <option name="PROGRAM_PARAMETERS" value="--module-path $PROJECT_DIR$/../jmsspy/JmsSpyApp/native/Darwin/arm/javafx-sdk-17.0.9/lib --add-modules javafx.controls,javafx.fxml,javafx.graphics -Xmx1g" />
+    <selectedOptions>
+      <option name="environmentVariables" visible="false" />
+    </selectedOptions>
+    <option name="VM_PARAMETERS" value="--module-path native/javafx-sdk-17.0.9/lib --add-modules javafx.controls,javafx.fxml,javafx.graphics -Xmx1g" />
     <extension name="coverage">
       <pattern>
         <option name="PATTERN" value="com.baber.*" />

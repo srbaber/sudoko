@@ -26,3 +26,4 @@ replay_pid*
 
 # intellij
 /.idea/
+/native/javafx-sdk-17.0.9/
