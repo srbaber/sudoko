@@ -31,7 +31,8 @@ public class SudokuUI extends Application  {
 
     private void initializeController()
     {
-        controller = new Controller();
+        controller = Controller.getSINGLETON();
+        controller.init();
     }
 
     public Node load(final String filename) throws IOException
