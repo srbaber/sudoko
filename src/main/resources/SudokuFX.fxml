@@ -36,30 +36,30 @@
     <center>
         <GridPane BorderPane.alignment="CENTER" fx:id="gridPane">
             <columnConstraints>
+                <ColumnConstraints hgrow="NEVER" minWidth="60.0" prefWidth="100.0"/>
+                <ColumnConstraints hgrow="NEVER" minWidth="60.0" prefWidth="100.0"/>
+                <ColumnConstraints hgrow="NEVER" minWidth="60.0" prefWidth="100.0"/>
                 <ColumnConstraints hgrow="NEVER" minWidth="10.0" prefWidth="100.0"/>
+                <ColumnConstraints hgrow="NEVER" minWidth="60.0" prefWidth="100.0"/>
+                <ColumnConstraints hgrow="NEVER" minWidth="60.0" prefWidth="100.0"/>
+                <ColumnConstraints hgrow="NEVER" minWidth="60.0" prefWidth="100.0"/>
                 <ColumnConstraints hgrow="NEVER" minWidth="10.0" prefWidth="100.0"/>
-                <ColumnConstraints hgrow="NEVER" minWidth="10.0" prefWidth="100.0"/>
-                <ColumnConstraints hgrow="NEVER" minWidth="10.0" prefWidth="100.0"/>
-                <ColumnConstraints hgrow="NEVER" minWidth="10.0" prefWidth="100.0"/>
-                <ColumnConstraints hgrow="NEVER" minWidth="10.0" prefWidth="100.0"/>
-                <ColumnConstraints hgrow="NEVER" minWidth="10.0" prefWidth="100.0"/>
-                <ColumnConstraints hgrow="NEVER" minWidth="10.0" prefWidth="100.0"/>
-                <ColumnConstraints hgrow="NEVER" minWidth="10.0" prefWidth="100.0"/>
-                <ColumnConstraints hgrow="NEVER" minWidth="10.0" prefWidth="100.0"/>
-                <ColumnConstraints hgrow="NEVER" minWidth="10.0" prefWidth="100.0"/>
+                <ColumnConstraints hgrow="NEVER" minWidth="60.0" prefWidth="100.0"/>
+                <ColumnConstraints hgrow="NEVER" minWidth="60.0" prefWidth="100.0"/>
+                <ColumnConstraints hgrow="NEVER" minWidth="60.0" prefWidth="100.0"/>
             </columnConstraints>
             <rowConstraints>
-                <RowConstraints vgrow="NEVER" minHeight="10.0" prefHeight="30.0"/>
-                <RowConstraints vgrow="NEVER" minHeight="10.0" prefHeight="30.0"/>
-                <RowConstraints vgrow="NEVER" minHeight="10.0" prefHeight="30.0"/>
-                <RowConstraints vgrow="NEVER" minHeight="10.0" prefHeight="30.0"/>
-                <RowConstraints vgrow="NEVER" minHeight="10.0" prefHeight="30.0"/>
-                <RowConstraints vgrow="NEVER" minHeight="10.0" prefHeight="30.0"/>
-                <RowConstraints vgrow="NEVER" minHeight="10.0" prefHeight="30.0"/>
-                <RowConstraints vgrow="NEVER" minHeight="10.0" prefHeight="30.0"/>
-                <RowConstraints vgrow="NEVER" minHeight="10.0" prefHeight="30.0"/>
-                <RowConstraints vgrow="NEVER" minHeight="10.0" prefHeight="30.0"/>
-                <RowConstraints vgrow="NEVER" minHeight="10.0" prefHeight="30.0"/>
+                <RowConstraints vgrow="NEVER" minHeight="30.0" prefHeight="30.0"/>
+                <RowConstraints vgrow="NEVER" minHeight="30.0" prefHeight="30.0"/>
+                <RowConstraints vgrow="NEVER" minHeight="30.0" prefHeight="30.0"/>
+                <RowConstraints vgrow="NEVER" minHeight="30.0" prefHeight="30.0"/>
+                <RowConstraints vgrow="NEVER" minHeight="30.0" prefHeight="30.0"/>
+                <RowConstraints vgrow="NEVER" minHeight="30.0" prefHeight="30.0"/>
+                <RowConstraints vgrow="NEVER" minHeight="30.0" prefHeight="30.0"/>
+                <RowConstraints vgrow="NEVER" minHeight="30.0" prefHeight="30.0"/>
+                <RowConstraints vgrow="NEVER" minHeight="30.0" prefHeight="30.0"/>
+                <RowConstraints vgrow="NEVER" minHeight="30.0" prefHeight="30.0"/>
+                <RowConstraints vgrow="NEVER" minHeight="30.0" prefHeight="30.0"/>
             </rowConstraints>
             <children>
             </children>

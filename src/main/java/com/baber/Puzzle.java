@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Slf4j
@@ -11,6 +12,7 @@ class Puzzle {
     public static final int CELL_COUNT = 9;
     String id = UUID.randomUUID().toString();
     int[][] values = new int[CELL_COUNT][CELL_COUNT];
+    Optional<String> error = Optional.empty();
 
     public Puzzle(int... values) {
         if (values.length != CELL_COUNT * CELL_COUNT) {
@@ -121,11 +123,13 @@ class Puzzle {
                     unique &= hasUniqueValues(boxValues(x, y), value);
 
                     if (!unique) {
+                        error = Optional.of("Puzzle has errors at cell " + (x+1) + " x " + (y+1));
                         return false;
                     }
                 }
             }
         }
+        error = Optional.empty();
         return true;
     }
 

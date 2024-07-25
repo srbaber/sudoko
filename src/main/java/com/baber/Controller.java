@@ -1,12 +1,17 @@
 package com.baber;
 
+import com.baber.fx.BackgroundAgent;
 import com.baber.fx.Dialogs;
+import com.baber.fx.HandlesEvent;
 import com.baber.fx.SudokuComboBox;
 import com.google.common.base.Stopwatch;
 import javafx.application.Platform;
+import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import lombok.Getter;
@@ -14,12 +19,12 @@ import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Optional;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicReference;
 
 import static com.baber.Puzzle.CELL_COUNT;
 
@@ -53,8 +58,10 @@ public class Controller {
         for (int x = 0; x< CELL_COUNT; x++) {
             for (int y = 0; y < CELL_COUNT; y++)
             {
+                int xRule = x / 3;
+                int yRule = y / 3;
                 values[x][y] = new SudokuComboBox();
-                gridPane.add(values[x][y], y, x);
+                gridPane.add(values[x][y], y+yRule, x+xRule);
             }
         }
         clear(null);
@@ -85,19 +92,35 @@ public class Controller {
     public void solve(final ActionEvent evt) {
         Stopwatch stopwatch = Stopwatch.createStarted();
         Puzzle puzzle = new Puzzle(getValues());
-        if (!puzzle.isValid())
-        {
-            dialogs.error("Puzzle is not valid");
-            return;
-        }
 
-        Puzzle solution = Sudoku.solve(puzzle);
-        if (solution != null) {
-            updateMessageLog("Solution in " + stopwatch.elapsed(TimeUnit.MILLISECONDS)  + " ms");
-            setValues(solution.values);
-        } else {
-            dialogs.error("No solution found");
-        }
+        AtomicReference<Puzzle> solution = new AtomicReference<>();
+
+        EventHandler<WorkerStateEvent> solvedHandler = workerStateEvent -> {
+            if (solution.get() != null) {
+                updateMessageLog("Solution found in " + stopwatch.elapsed(TimeUnit.MILLISECONDS) + " ms");
+                setValues(solution.get().values);
+            } else {
+                dialogs.error("No solution found");
+            }
+        };
+        EventHandler<WorkerStateEvent> invalidHandler = workerStateEvent -> {
+            dialogs.error(puzzle.error.get());
+        };
+        HandlesEvent<Boolean> backgroundHandler = () -> {
+            if (!puzzle.isValid()) {
+                return false;
+            }
+
+            solution.set(Sudoku.solve(puzzle));
+            return true;
+        };
+        BackgroundAgent<Boolean> solveIt = new BackgroundAgent<Boolean>()
+                .andNotifyWhenFailed(invalidHandler)
+                .andNotifyWhenComplete(solvedHandler);
+
+        Alert dialog = dialogs.working("Solving");
+        solveIt.runInBackground(backgroundHandler);
+        dialog.close();
     }
 
     @FXML
