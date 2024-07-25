@@ -7,7 +7,7 @@
     <selectedOptions>
       <option name="environmentVariables" visible="false" />
     </selectedOptions>
-    <option name="VM_PARAMETERS" value="--module-path native/javafx-sdk-17.0.9/lib --add-modules javafx.controls,javafx.fxml,javafx.graphics -Xmx1g" />
+    <option name="VM_PARAMETERS" value="--module-path native/javafx-sdk-17.0.12/lib --add-modules javafx.controls,javafx.fxml,javafx.graphics -Xmx1g" />
     <extension name="coverage">
       <pattern>
         <option name="PATTERN" value="com.baber.*" />

@@ -5,13 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5e1756cf-d2cf-4f0a-8f37-74c2b2ff284b" name="Changes" comment="initial commit">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/baber/Puzzle.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/baber/fx/SudokuComboBox.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/simplelogger.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/runit.sh" beforeDir="false" afterPath="$PROJECT_DIR$/runit.sh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/baber/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/baber/Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/baber/Sudoku.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/baber/Sudoku.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/baber/SudokuUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/baber/SudokuUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/baber/Puzzle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/baber/Puzzle.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/SudokuFX.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/SudokuFX.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -46,7 +45,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "/Users/stevebaber/git/sudoku/src/main/resources",
+    "last_opened_file_path": "/Users/stevebaber/git/sudoku/native",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -61,8 +60,8 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/main/resources" />
       <recent name="$PROJECT_DIR$/native" />
+      <recent name="$PROJECT_DIR$/src/main/resources" />
       <recent name="$PROJECT_DIR$/src/main/java/com/baber" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -186,7 +185,7 @@
       <workItem from="1721854264771" duration="584000" />
       <workItem from="1721855026359" duration="818000" />
       <workItem from="1721855901359" duration="118000" />
-      <workItem from="1721856022608" duration="7639000" />
+      <workItem from="1721856022608" duration="13707000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <option name="closed" value="true" />
@@ -252,7 +251,15 @@
       <option name="project" value="LOCAL" />
       <updated>1721856072014</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="initial commit">
+      <option name="closed" value="true" />
+      <created>1721871485607</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1721871485607</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

@@ -22,13 +22,12 @@ class Puzzle {
         }
     }
 
-    public Puzzle(int[][] values)
-    {
-        this.values = values;
-    }
-
-    public Puzzle clone() {
-        return new Puzzle(this.values.clone());
+    public Puzzle(int[][] values) {
+        for (int x = 0; x < CELL_COUNT; x++) {
+            for (int y = 0; y < CELL_COUNT; y++) {
+                this.values[x][y] = values[x][y];
+            }
+        }
     }
 
     public void set(int i, int value) {
@@ -112,6 +111,38 @@ class Puzzle {
         } while (hasSingleCandidate);
     }
 
+    public boolean isValid() {
+        for (int x = 0; x < CELL_COUNT; x++) {
+            for (int y = 0; y < CELL_COUNT; y++) {
+                if (isSet(x, y)) {
+                    int value = get(x, y);
+                    boolean unique = hasUniqueValues(rowValues(x), value);
+                    unique &= hasUniqueValues(colValues(y), value);
+                    unique &= hasUniqueValues(boxValues(x, y), value);
+
+                    if (!unique) {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
+    private boolean hasUniqueValues(List<Integer> newValues, int cellValue) {
+        boolean foundOnce = false;
+        for (int value : newValues) {
+            if (cellValue == value) {
+                if (foundOnce) {
+                    return false;
+                } else {
+                    foundOnce = true;
+                }
+            }
+        }
+        return true;
+    }
+
     public boolean isSolvable() {
         for (int x = 0; x < CELL_COUNT; x++) {
             for (int y = 0; y < CELL_COUNT; y++) {
@@ -164,14 +195,13 @@ class Puzzle {
         }
 
         List<Puzzle> forks = Lists.newArrayList();
-        if (bestX == CELL_COUNT || bestY == CELL_COUNT)
-        {
+        if (bestX == CELL_COUNT || bestY == CELL_COUNT) {
             return forks;
         }
 
         List<Integer> candidateList = candidates(bestX, bestY);
         for (Integer value : candidateList) {
-            Puzzle fork = clone();
+            Puzzle fork = new Puzzle(this.values);
             fork.set(bestX, bestY, value);
             forks.add(fork);
             log.debug("Fork {}x{}\n{}", bestX, bestY, fork);

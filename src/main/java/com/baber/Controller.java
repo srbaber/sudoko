@@ -11,12 +11,22 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import lombok.Getter;
 import lombok.NonNull;
+import lombok.extern.slf4j.Slf4j;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import static com.baber.Puzzle.CELL_COUNT;
 
+@Slf4j
 public class Controller {
+    private static final String SAVE_FILE = "sudoku.sav";
+
     private final Dialogs dialogs = new Dialogs();
 
     @FXML
@@ -75,6 +85,12 @@ public class Controller {
     public void solve(final ActionEvent evt) {
         Stopwatch stopwatch = Stopwatch.createStarted();
         Puzzle puzzle = new Puzzle(getValues());
+        if (!puzzle.isValid())
+        {
+            dialogs.error("Puzzle is not valid");
+            return;
+        }
+
         Puzzle solution = Sudoku.solve(puzzle);
         if (solution != null) {
             updateMessageLog("Solution in " + stopwatch.elapsed(TimeUnit.MILLISECONDS)  + " ms");
@@ -90,6 +106,42 @@ public class Controller {
             for (int y = 0; y < CELL_COUNT; y++) {
                 values[x][y].setSelectedValue(0);
             }
+        }
+    }
+
+    @FXML
+    public void save(final ActionEvent evt) {
+        try (FileOutputStream fos = new FileOutputStream(SAVE_FILE))
+        {
+            int[][] values = getValues();
+            for (int x=0; x<CELL_COUNT; x++) {
+                for (int y = 0; y < CELL_COUNT; y++) {
+                    fos.write(Integer.toString(values[x][y]).getBytes());
+                    fos.write('\n');
+                }
+            }
+        } catch (IOException exc)
+        {
+            log.error("Could not save puzzle to {}", SAVE_FILE, exc);
+            dialogs.error("Could not save puzzle to " + SAVE_FILE);
+        }
+    }
+
+    @FXML
+    public void load(final ActionEvent evt) {
+        try (BufferedReader fis = new BufferedReader(new FileReader(SAVE_FILE)))
+        {
+            int[][] values = new int[CELL_COUNT][CELL_COUNT];
+            for (int x=0; x<CELL_COUNT; x++) {
+                for (int y = 0; y < CELL_COUNT; y++) {
+                    String value = fis.readLine();
+                    values[x][y] = Integer.parseInt(value);
+                }
+            }
+            setValues(values);
+        } catch (IOException | NumberFormatException exc) {
+            log.error("Could not load puzzle from {}", SAVE_FILE, exc);
+            dialogs.error("Could not load puzzle from " + SAVE_FILE);
         }
     }
 
