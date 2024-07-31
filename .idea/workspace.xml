@@ -6,9 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="5e1756cf-d2cf-4f0a-8f37-74c2b2ff284b" name="Changes" comment="initial commit">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/baber/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/baber/Controller.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/baber/Puzzle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/baber/Puzzle.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/SudokuFX.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/SudokuFX.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/baber/Sudoku.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/baber/Sudoku.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,7 +41,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "/Users/stevebaber/git/sudoku/native",
+    "last_opened_file_path": "/Users/stevebaber/git/sudoku",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -57,6 +56,7 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/native" />
       <recent name="$PROJECT_DIR$/src/main/resources" />
       <recent name="$PROJECT_DIR$/src/main/java/com/baber" />
@@ -182,7 +182,9 @@
       <workItem from="1721854264771" duration="584000" />
       <workItem from="1721855026359" duration="818000" />
       <workItem from="1721855901359" duration="118000" />
-      <workItem from="1721856022608" duration="16845000" />
+      <workItem from="1721856022608" duration="17378000" />
+      <workItem from="1722441533682" duration="945000" />
+      <workItem from="1722445388791" duration="4993000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <option name="closed" value="true" />
@@ -264,7 +266,15 @@
       <option name="project" value="LOCAL" />
       <updated>1721918047055</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="initial commit">
+      <option name="closed" value="true" />
+      <created>1721921675532</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1721921675532</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -284,13 +294,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/baber/Puzzle.java</url>
-          <line>125</line>
-          <option name="timeStamp" value="9" />
+          <line>165</line>
+          <option name="timeStamp" value="17" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/baber/Puzzle.java</url>
-          <line>131</line>
-          <option name="timeStamp" value="10" />
+          <line>169</line>
+          <option name="timeStamp" value="18" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

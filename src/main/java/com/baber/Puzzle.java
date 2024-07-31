@@ -25,9 +25,9 @@ class Puzzle {
     }
 
     public Puzzle(int[][] values) {
-        for (int x = 0; x < CELL_COUNT; x++) {
-            for (int y = 0; y < CELL_COUNT; y++) {
-                this.values[x][y] = values[x][y];
+        for (int row = 0; row < CELL_COUNT; row++) {
+            for (int col = 0; col < CELL_COUNT; col++) {
+                this.values[row][col] = values[row][col];
             }
         }
     }
@@ -38,61 +38,61 @@ class Puzzle {
         set(x, y, value);
     }
 
-    public void set(int x, int y, int value) {
-        values[x][y] = value;
+    public void set(int row, int col, int value) {
+        values[row][col] = value;
     }
 
-    public boolean isSet(int x, int y) {
-        return values[x][y] != 0;
+    public boolean isSet(int row, int col) {
+        return values[row][col] != 0;
     }
 
-    public boolean isUnSet(int x, int y) {
-        return !isSet(x, y);
+    public boolean isUnSet(int row, int col) {
+        return !isSet(row, col);
     }
 
     public int get(int i) {
-        int x = i / CELL_COUNT;
-        int y = i % CELL_COUNT;
-        return get(x, y);
+        int row = i / CELL_COUNT;
+        int col = i % CELL_COUNT;
+        return get(row, col);
     }
 
-    public int get(int x, int y) {
-        return values[x][y];
+    public int get(int row, int col) {
+        return values[row][col];
     }
 
-    public List<Integer> colValues(int y) {
-        List<Integer> col = Lists.newArrayList();
-        for (int x = 0; x < CELL_COUNT; x++) {
-            col.add(get(x, y));
+    public List<Integer> colValues(int col) {
+        List<Integer> colValues = Lists.newArrayList();
+        for (int row = 0; row < CELL_COUNT; row++) {
+            colValues.add(get(row, col));
         }
-        return col;
+        return colValues;
     }
 
-    public List<Integer> rowValues(int x) {
-        List<Integer> row = Lists.newArrayList();
-        for (int y = 0; y < CELL_COUNT; y++) {
-            row.add(get(x, y));
+    public List<Integer> rowValues(int row) {
+        List<Integer> rowValues = Lists.newArrayList();
+        for (int col = 0; col < CELL_COUNT; col++) {
+            rowValues.add(get(row, col));
         }
-        return row;
+        return rowValues;
     }
 
-    public List<Integer> boxValues(int x, int y) {
+    public List<Integer> boxValues(int row, int col) {
         List<Integer> box = Lists.newArrayList();
-        int baseX = x / 3;
-        int baseY = y / 3;
+        int baseRow = row / 3;
+        int baseCol = col / 3;
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                box.add(get(baseX * 3 + i, baseY * 3 + j));
+                box.add(get(baseRow * 3 + i, baseCol * 3 + j));
             }
         }
         return box;
     }
 
-    public List<Integer> candidates(int x, int y) {
+    public List<Integer> candidates(int row, int col) {
         List<Integer> candidateList = Lists.newArrayList(1, 2, 3, 4, 5, 6, 7, 8, 9);
-        candidateList.removeAll(rowValues(x));
-        candidateList.removeAll(colValues(y));
-        candidateList.removeAll(boxValues(x, y));
+        candidateList.removeAll(rowValues(row));
+        candidateList.removeAll(colValues(col));
+        candidateList.removeAll(boxValues(row, col));
         return candidateList;
     }
 
@@ -100,12 +100,12 @@ class Puzzle {
         boolean hasSingleCandidate;
         do {
             hasSingleCandidate = false;
-            for (int x = 0; x < CELL_COUNT; x++) {
-                for (int y = 0; y < CELL_COUNT; y++) {
-                    List<Integer> candidateList = candidates(x, y);
-                    if (isUnSet(x, y) && candidateList.size() == 1) {
-                        log.debug("Single Candidate at {}x{} -- {}", x, y, candidateList.get(0));
-                        values[x][y] = candidateList.get(0);
+            for (int row = 0; row < CELL_COUNT; row++) {
+                for (int col = 0; col < CELL_COUNT; col++) {
+                    List<Integer> candidateList = candidates(row, col);
+                    if (isUnSet(row, col) && candidateList.size() == 1) {
+                        log.debug("Single Candidate at row {} x col {} -- {}", row, col, candidateList.get(0));
+                        values[row][col] = candidateList.get(0);
                         hasSingleCandidate = true;
                     }
                 }
@@ -113,17 +113,86 @@ class Puzzle {
         } while (hasSingleCandidate);
     }
 
+    private boolean isLastOnColumn(int row, int col) {
+        boolean otherColumnsFiled = true;
+        int baseRow = (row / 3) * 3;
+        for (int i = baseRow; i < baseRow + 3; i++) {
+            if (i != row && isUnSet(i, col)) {
+                otherColumnsFiled = false;
+            }
+        }
+        return otherColumnsFiled;
+    }
+
+    private boolean isLastOnRow(int row, int col) {
+        boolean otherRowsFiled = true;
+        int baseCol = (col / 3) * 3;
+        for (int i = baseCol; i < baseCol + 3; i++) {
+            if (i != col && isUnSet(row, i)) {
+                otherRowsFiled = false;
+            }
+        }
+        return otherRowsFiled;
+    }
+
+    private boolean valueSetOnOtherRows(int row, int value) {
+        int baseRow = row / 3;
+        for (int i = baseRow; i < baseRow + 3; i++) {
+            if (i != row && !rowValues(i).contains(value)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean valueSetOnOtherColumns(int col, int value) {
+        int baseCol = col / 3;
+        for (int i = baseCol; i < baseCol + 3; i++) {
+            if (i != col && !colValues(i).contains(value)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public void solveWhenOtherRowsSolved() {
+        for (int row = 0; row < CELL_COUNT; row++) {
+            for (int col = 0; col < CELL_COUNT; col++) {
+                if (isUnSet(row, col)) {
+                    List<Integer> candidateList = candidates(row, col);
+                    for (int candidate=0; candidate< candidateList.size(); candidate++) {
+                        int value = candidateList.get(candidate);
+                        if (isLastOnColumn(row, col) && valueSetOnOtherColumns(col, value)) {
+                            log.info("last one on the column row {} x col {} gets value", row, col, value);
+                            set(row, col, value);
+                            return;
+                        } else if (isLastOnRow(row, col) && valueSetOnOtherRows(row, value)) {
+                            log.info("last one on the row row {} x col {} gets value {}", row, col, value);
+                            set(row, col, value);
+                            return;
+                        } else if (valueSetOnOtherColumns(col, value) && valueSetOnOtherRows(row, value))
+                        {
+                            log.info("last one on the row & column row {} x col {} gets value {}", row, col, value);
+                            set(row, col, value);
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     public boolean isValid() {
-        for (int x = 0; x < CELL_COUNT; x++) {
-            for (int y = 0; y < CELL_COUNT; y++) {
-                if (isSet(x, y)) {
-                    int value = get(x, y);
-                    boolean unique = hasUniqueValues(rowValues(x), value);
-                    unique &= hasUniqueValues(colValues(y), value);
-                    unique &= hasUniqueValues(boxValues(x, y), value);
+        for (int row = 0; row < CELL_COUNT; row++) {
+            for (int col = 0; col < CELL_COUNT; col++) {
+                if (isSet(row, col)) {
+                    int value = get(row, col);
+                    boolean unique = hasUniqueValues(rowValues(row), value);
+                    unique &= hasUniqueValues(colValues(col), value);
+                    unique &= hasUniqueValues(boxValues(row, col), value);
 
                     if (!unique) {
-                        error = Optional.of("Puzzle has errors at cell " + (x+1) + " x " + (y+1));
+                        error = Optional.of("Puzzle has errors at cell row " + (row + 1) + " x col " + (col + 1));
                         return false;
                     }
                 }
@@ -148,10 +217,10 @@ class Puzzle {
     }
 
     public boolean isSolvable() {
-        for (int x = 0; x < CELL_COUNT; x++) {
-            for (int y = 0; y < CELL_COUNT; y++) {
-                List<Integer> candidateList = candidates(x, y);
-                if (isUnSet(x, y) && candidateList.isEmpty()) {
+        for (int row = 0; row < CELL_COUNT; row++) {
+            for (int col = 0; col < CELL_COUNT; col++) {
+                List<Integer> candidateList = candidates(row, col);
+                if (isUnSet(row, col) && candidateList.isEmpty()) {
                     return false;
                 }
             }
@@ -162,61 +231,61 @@ class Puzzle {
     public String toString() {
         StringBuilder str = new StringBuilder();
         str.append("UUID " + id + "\n");
-        for (int x = 0; x < CELL_COUNT; x++) {
-            if (x > 0) {
+        for (int row = 0; row < CELL_COUNT; row++) {
+            if (row > 0) {
                 str.append("\n");
             }
-            if (x % 3 == 0) {
+            if (row % 3 == 0) {
                 str.append("\n");
             }
 
-            for (int y = 0; y < CELL_COUNT; y++) {
-                if (y > 0) {
+            for (int col = 0; col < CELL_COUNT; col++) {
+                if (col > 0) {
                     str.append(" ");
                 }
-                if (y % 3 == 0) {
+                if (col % 3 == 0) {
                     str.append(" ");
                 }
-                str.append(values[x][y]);
+                str.append(values[row][col]);
             }
         }
         return str.toString();
     }
 
     public List<Puzzle> fork() {
-        int bestX = CELL_COUNT;
-        int bestY = CELL_COUNT;
+        int bestRow = CELL_COUNT;
+        int bestCol = CELL_COUNT;
         int minCandidateSize = CELL_COUNT;
-        for (int x = 0; x < CELL_COUNT; x++) {
-            for (int y = 0; y < CELL_COUNT; y++) {
-                List<Integer> candidateList = candidates(x, y);
-                if (isUnSet(x, y) && candidateList.size() < minCandidateSize) {
-                    bestX = x;
-                    bestY = y;
+        for (int row = 0; row < CELL_COUNT; row++) {
+            for (int col = 0; col < CELL_COUNT; col++) {
+                List<Integer> candidateList = candidates(row, col);
+                if (isUnSet(row, col) && candidateList.size() < minCandidateSize) {
+                    bestRow = row;
+                    bestCol = col;
                     minCandidateSize = candidateList.size();
                 }
             }
         }
 
         List<Puzzle> forks = Lists.newArrayList();
-        if (bestX == CELL_COUNT || bestY == CELL_COUNT) {
+        if (bestRow == CELL_COUNT || bestCol == CELL_COUNT) {
             return forks;
         }
 
-        List<Integer> candidateList = candidates(bestX, bestY);
+        List<Integer> candidateList = candidates(bestRow, bestCol);
         for (Integer value : candidateList) {
             Puzzle fork = new Puzzle(this.values);
-            fork.set(bestX, bestY, value);
+            fork.set(bestRow, bestCol, value);
             forks.add(fork);
-            log.debug("Fork {}x{}\n{}", bestX, bestY, fork);
+            log.debug("Fork row {} x col {}\n{}", bestRow, bestCol, fork);
         }
         return forks;
     }
 
     public boolean isSolved() {
-        for (int x = 0; x < CELL_COUNT; x++) {
-            for (int y = 0; y < CELL_COUNT; y++) {
-                if (isUnSet(x, y)) {
+        for (int row = 0; row < CELL_COUNT; row++) {
+            for (int col = 0; col < CELL_COUNT; col++) {
+                if (isUnSet(row, col)) {
                     return false;
                 }
             }

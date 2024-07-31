@@ -18,8 +18,15 @@ public class Sudoku {
         while (!puzzleSteps.isEmpty()) {
             for (int i = 0; i< puzzleSteps.size(); i++) {
                 Puzzle puzzle = puzzleSteps.get(i);
-                log.info("Evaluate {} of {}\n{}", i+1, puzzleSteps.size(), puzzle);
+                log.info("Evaluate Single Candidates {} of {}\n{}", i + 1, puzzleSteps.size(), puzzle);
+
                 puzzle.solveSingleCandidates();
+                if (puzzle.isSolved()) {
+                    return puzzle;
+                }
+
+                log.info("Evaluate Cell Requires {} of {}\n{}", i + 1, puzzleSteps.size(), puzzle);
+                puzzle.solveWhenOtherRowsSolved();
                 if (puzzle.isSolved()) {
                     return puzzle;
                 }
