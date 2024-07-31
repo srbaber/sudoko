@@ -78,11 +78,11 @@ class Puzzle {
 
     public List<Integer> boxValues(int row, int col) {
         List<Integer> box = Lists.newArrayList();
-        int baseRow = row / 3;
-        int baseCol = col / 3;
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                box.add(get(baseRow * 3 + i, baseCol * 3 + j));
+        int baseRow = (row / 3) * 3;
+        int baseCol = (col / 3) * 3;
+        for (int i = baseRow; i < baseRow + 3; i++) {
+            for (int j = baseCol; j < baseCol + 3; j++) {
+                box.add(get(i, j));
             }
         }
         return box;
@@ -115,8 +115,8 @@ class Puzzle {
 
     private boolean isLastOnColumn(int row, int col) {
         boolean otherColumnsFiled = true;
-        int baseRow = (row / 3) * 3;
-        for (int i = baseRow; i < baseRow + 3; i++) {
+        int startRow = (row / 3) * 3;
+        for (int i = startRow; i < startRow + 3; i++) {
             if (i != row && isUnSet(i, col)) {
                 otherColumnsFiled = false;
             }
@@ -126,9 +126,9 @@ class Puzzle {
 
     private boolean isLastOnRow(int row, int col) {
         boolean otherRowsFiled = true;
-        int baseCol = (col / 3) * 3;
-        for (int i = baseCol; i < baseCol + 3; i++) {
-            if (i != col && isUnSet(row, i)) {
+        int startCol = (col / 3) * 3;
+        for (int j = startCol; j < startCol + 3; j++) {
+            if (j != col && isUnSet(row, j)) {
                 otherRowsFiled = false;
             }
         }
@@ -136,8 +136,8 @@ class Puzzle {
     }
 
     private boolean valueSetOnOtherRows(int row, int value) {
-        int baseRow = row / 3;
-        for (int i = baseRow; i < baseRow + 3; i++) {
+        int startRow = (row / 3) * 3;
+        for (int i = startRow; i < startRow + 3; i++) {
             if (i != row && !rowValues(i).contains(value)) {
                 return false;
             }
@@ -146,9 +146,9 @@ class Puzzle {
     }
 
     private boolean valueSetOnOtherColumns(int col, int value) {
-        int baseCol = col / 3;
-        for (int i = baseCol; i < baseCol + 3; i++) {
-            if (i != col && !colValues(i).contains(value)) {
+        int startCol = (col / 3) * 3;
+        for (int j = startCol; j < startCol + 3; j++) {
+            if (j != col && !colValues(j).contains(value)) {
                 return false;
             }
         }
@@ -163,16 +163,16 @@ class Puzzle {
                     for (int candidate=0; candidate< candidateList.size(); candidate++) {
                         int value = candidateList.get(candidate);
                         if (isLastOnColumn(row, col) && valueSetOnOtherColumns(col, value)) {
-                            log.info("last one on the column row {} x col {} gets value", row, col, value);
+                            log.info("last one on the column row {} x col {} --", row, col, value);
                             set(row, col, value);
                             return;
                         } else if (isLastOnRow(row, col) && valueSetOnOtherRows(row, value)) {
-                            log.info("last one on the row row {} x col {} gets value {}", row, col, value);
+                            log.info("last one on the row row {} x col {} -- {}", row, col, value);
                             set(row, col, value);
                             return;
                         } else if (valueSetOnOtherColumns(col, value) && valueSetOnOtherRows(row, value))
                         {
-                            log.info("last one on the row & column row {} x col {} gets value {}", row, col, value);
+                            log.info("last one on the row & column row {} x col {} -- {}", row, col, value);
                             set(row, col, value);
                             return;
                         }
