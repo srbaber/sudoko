@@ -20,13 +20,7 @@ public class Sudoku {
                 Puzzle puzzle = puzzleSteps.get(i);
                 log.info("Evaluate Single Candidates {} of {}\n{}", i + 1, puzzleSteps.size(), puzzle);
 
-                puzzle.solveSingleCandidates();
-                if (puzzle.isSolved()) {
-                    return puzzle;
-                }
-
-                log.info("Evaluate Cell Requires {} of {}\n{}", i + 1, puzzleSteps.size(), puzzle);
-                puzzle.solveWhenOtherRowsSolved();
+                while (puzzle.solveSingleCandidates() || puzzle.solveWhenCelLRequiresValue());
                 if (puzzle.isSolved()) {
                     return puzzle;
                 }

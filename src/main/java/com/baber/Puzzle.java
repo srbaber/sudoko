@@ -96,24 +96,21 @@ class Puzzle {
         return candidateList;
     }
 
-    public void solveSingleCandidates() {
-        boolean hasSingleCandidate;
-        do {
-            hasSingleCandidate = false;
-            for (int row = 0; row < CELL_COUNT; row++) {
-                for (int col = 0; col < CELL_COUNT; col++) {
-                    List<Integer> candidateList = candidates(row, col);
-                    if (isUnSet(row, col) && candidateList.size() == 1) {
-                        log.debug("Single Candidate at row {} x col {} -- {}", row, col, candidateList.get(0));
-                        values[row][col] = candidateList.get(0);
-                        hasSingleCandidate = true;
-                    }
+    public boolean solveSingleCandidates() {
+        for (int row = 0; row < CELL_COUNT; row++) {
+            for (int col = 0; col < CELL_COUNT; col++) {
+                List<Integer> candidateList = candidates(row, col);
+                if (isUnSet(row, col) && candidateList.size() == 1) {
+                    log.debug("Single Candidate at row {} x col {} -- {}", row, col, candidateList.get(0));
+                    values[row][col] = candidateList.get(0);
+                    return true;
                 }
             }
-        } while (hasSingleCandidate);
+        }
+        return false;
     }
 
-    private boolean isLastOnColumn(int row, int col) {
+    private boolean isLastColumn(int row, int col) {
         boolean otherColumnsFiled = true;
         int startRow = (row / 3) * 3;
         for (int i = startRow; i < startRow + 3; i++) {
@@ -124,7 +121,7 @@ class Puzzle {
         return otherColumnsFiled;
     }
 
-    private boolean isLastOnRow(int row, int col) {
+    private boolean isLastRow(int row, int col) {
         boolean otherRowsFiled = true;
         int startCol = (col / 3) * 3;
         for (int j = startCol; j < startCol + 3; j++) {
@@ -155,31 +152,34 @@ class Puzzle {
         return true;
     }
 
-    public void solveWhenOtherRowsSolved() {
+    public boolean solveWhenCelLRequiresValue() {
         for (int row = 0; row < CELL_COUNT; row++) {
             for (int col = 0; col < CELL_COUNT; col++) {
                 if (isUnSet(row, col)) {
                     List<Integer> candidateList = candidates(row, col);
-                    for (int candidate=0; candidate< candidateList.size(); candidate++) {
+                    for (int candidate = 0; candidate < candidateList.size(); candidate++) {
                         int value = candidateList.get(candidate);
-                        if (isLastOnColumn(row, col) && valueSetOnOtherColumns(col, value)) {
-                            log.info("last one on the column row {} x col {} --", row, col, value);
+                        boolean setOnOtherColumns = valueSetOnOtherColumns(col, value);
+                        boolean setOnOtherRows = valueSetOnOtherRows(row, value);
+
+                        if (setOnOtherColumns && setOnOtherRows) {
+                            log.info("required value on the row & column row {} x col {} -- {}", row, col, value);
                             set(row, col, value);
-                            return;
-                        } else if (isLastOnRow(row, col) && valueSetOnOtherRows(row, value)) {
-                            log.info("last one on the row row {} x col {} -- {}", row, col, value);
+                            return true;
+                        } else if (isLastColumn(row, col) && setOnOtherColumns) {
+                            log.info("required value on the column row {} x col {} -- {}", row, col, value);
                             set(row, col, value);
-                            return;
-                        } else if (valueSetOnOtherColumns(col, value) && valueSetOnOtherRows(row, value))
-                        {
-                            log.info("last one on the row & column row {} x col {} -- {}", row, col, value);
+                            return true;
+                        } else if (isLastRow(row, col) && setOnOtherRows) {
+                            log.info("required value on the row row {} x col {} -- {}", row, col, value);
                             set(row, col, value);
-                            return;
+                            return true;
                         }
                     }
                 }
             }
         }
+        return false;
     }
 
     public boolean isValid() {
