@@ -8,12 +8,15 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.TextInputDialog;
+import javafx.stage.FileChooser;
+import javafx.stage.Window;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.controlsfx.control.PropertySheet;
 
+import java.io.File;
 import java.util.List;
 import java.util.Optional;
 import java.util.Properties;
@@ -45,6 +48,16 @@ public class Dialogs
     private static final Alert PROPERTY_DIALOG = createPropertyDialog();
 
     /**
+     * don't look at my privates
+     */
+    private static final FileChooser FILE_OPEN_DIALOG = createFileOpenDialog();
+
+    /**
+     * don't look at my privates
+     */
+    private static final FileChooser FILE_SAVE_DIALOG = createFileOpenDialog();
+
+    /**
      * builds the error dialog
      */
     private static Alert createErrorDialog()
@@ -61,6 +74,26 @@ public class Dialogs
     {
         final Alert dialog = new Alert(AlertType.INFORMATION);
         dialog.setTitle("Info");
+        return dialog;
+    }
+
+    /**
+     * build a file open dialog
+     */
+    private static FileChooser createFileOpenDialog()
+    {
+        final FileChooser dialog = new FileChooser();
+        dialog.setTitle("Open File");
+        return dialog;
+    }
+
+    /**
+     * build a file save dialog
+     */
+    private static FileChooser createFileSaveDialog()
+    {
+        final FileChooser dialog = new FileChooser();
+        dialog.setTitle("Save File");
         return dialog;
     }
 
@@ -242,5 +275,27 @@ public class Dialogs
         inputDialog.setHeaderText(message);
         inputDialog.setResult(String.valueOf(defaultValue));
         return inputDialog.showAndWait();
+    }
+
+    /**
+     * helper to prompt for a load save file
+     */
+    public File fileOpen(final Window rootWindow, final String initialDirectory, final String initialFilename, final String extension)
+    {
+        FILE_OPEN_DIALOG.setInitialDirectory(new File(initialDirectory));
+        FILE_OPEN_DIALOG.setInitialFileName(initialFilename);
+        FILE_OPEN_DIALOG.setSelectedExtensionFilter(new FileChooser.ExtensionFilter("Save File", extension));
+        return FILE_OPEN_DIALOG.showOpenDialog(rootWindow);
+    }
+
+    /**
+     * helper to prompt for a save file
+     */
+    public File fileSave(final Window rootWindow, final String initialDirectory, final String initialFilename, final String extension)
+    {
+        FILE_SAVE_DIALOG.setInitialDirectory(new File(initialDirectory));
+        FILE_SAVE_DIALOG.setInitialFileName(initialFilename);
+        FILE_SAVE_DIALOG.setSelectedExtensionFilter(new FileChooser.ExtensionFilter("Save File", extension));
+        return FILE_SAVE_DIALOG.showSaveDialog(rootWindow);
     }
 }

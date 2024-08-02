@@ -14,15 +14,16 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -30,7 +31,11 @@ import static com.baber.Puzzle.CELL_COUNT;
 
 @Slf4j
 public class Controller {
+    private static final String SAVE_EXT = "sav";
+
     private static final String SAVE_FILE = "sudoku.sav";
+
+    private static Stage primaryStage;
 
     private final Dialogs dialogs = new Dialogs();
 
@@ -53,8 +58,9 @@ public class Controller {
         SINGLETON = this;
     }
 
-    public void init ()
+    public void init (Stage primaryStage)
     {
+        this.primaryStage = primaryStage;
         for (int x = 0; x< CELL_COUNT; x++) {
             for (int y = 0; y < CELL_COUNT; y++)
             {
@@ -134,37 +140,40 @@ public class Controller {
 
     @FXML
     public void save(final ActionEvent evt) {
-        try (FileOutputStream fos = new FileOutputStream(SAVE_FILE))
-        {
-            int[][] values = getValues();
-            for (int x=0; x<CELL_COUNT; x++) {
-                for (int y = 0; y < CELL_COUNT; y++) {
-                    fos.write(Integer.toString(values[x][y]).getBytes());
-                    fos.write('\n');
+        File saveFile = dialogs.fileSave(primaryStage, ".", SAVE_FILE, SAVE_EXT);
+        if (saveFile != null) {
+            try (FileOutputStream fos = new FileOutputStream(saveFile)) {
+                int[][] values = getValues();
+                for (int x = 0; x < CELL_COUNT; x++) {
+                    for (int y = 0; y < CELL_COUNT; y++) {
+                        fos.write(Integer.toString(values[x][y]).getBytes());
+                        fos.write('\n');
+                    }
                 }
+            } catch (IOException exc) {
+                log.error("Could not save puzzle to {}", saveFile, exc);
+                dialogs.error("Could not save puzzle to " + saveFile);
             }
-        } catch (IOException exc)
-        {
-            log.error("Could not save puzzle to {}", SAVE_FILE, exc);
-            dialogs.error("Could not save puzzle to " + SAVE_FILE);
         }
     }
 
     @FXML
     public void load(final ActionEvent evt) {
-        try (BufferedReader fis = new BufferedReader(new FileReader(SAVE_FILE)))
-        {
-            int[][] values = new int[CELL_COUNT][CELL_COUNT];
-            for (int x=0; x<CELL_COUNT; x++) {
-                for (int y = 0; y < CELL_COUNT; y++) {
-                    String value = fis.readLine();
-                    values[x][y] = Integer.parseInt(value);
+        File saveFile = dialogs.fileOpen(primaryStage, ".", SAVE_FILE, SAVE_EXT);
+        if (saveFile != null) {
+            try (BufferedReader fis = new BufferedReader(new FileReader(saveFile))) {
+                int[][] values = new int[CELL_COUNT][CELL_COUNT];
+                for (int x = 0; x < CELL_COUNT; x++) {
+                    for (int y = 0; y < CELL_COUNT; y++) {
+                        String value = fis.readLine();
+                        values[x][y] = Integer.parseInt(value);
+                    }
                 }
+                setValues(values);
+            } catch (IOException | NumberFormatException exc) {
+                log.error("Could not load puzzle from {}", saveFile, exc);
+                dialogs.error("Could not load puzzle from " + saveFile);
             }
-            setValues(values);
-        } catch (IOException | NumberFormatException exc) {
-            log.error("Could not load puzzle from {}", SAVE_FILE, exc);
-            dialogs.error("Could not load puzzle from " + SAVE_FILE);
         }
     }
 

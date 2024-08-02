@@ -24,15 +24,16 @@ public class SudokuUI extends Application  {
 
     public static Controller controller;
 
+
     public static void main(final String[] args)
     {
         launch(args);
     }
 
-    private void initializeController()
+    private void initializeController(final Stage primaryStage)
     {
         controller = Controller.getSINGLETON();
-        controller.init();
+        controller.init(primaryStage);
     }
 
     public Node load(final String filename) throws IOException
@@ -73,7 +74,7 @@ public class SudokuUI extends Application  {
 
             primaryStage.show();
 
-            initializeController();
+            initializeController(primaryStage);
 
             primaryStage.setOnCloseRequest(event -> controller.exit(event));
         }
